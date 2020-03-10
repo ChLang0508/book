@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yxr.bookbusiness.dao.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.yxr.bookbusiness.mode.Order" >
+    <id column="ord" property="ord" jdbcType="BIGINT" />
+    <result column="orderCode" property="orderCode" jdbcType="VARCHAR" />
+    <result column="userOrd" property="userOrd" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="totalNum" property="totalNum" jdbcType="INTEGER" />
+    <result column="totalPrice" property="totalPrice" jdbcType="DECIMAL" />
+    <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ord, orderCode, userOrd, status, totalNum, totalPrice, createTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from order
+    where ord = #{ord,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from order
+    where ord = #{ord,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yxr.bookbusiness.mode.Order" >
+    insert into order (ord, orderCode, userOrd, 
+      status, totalNum, totalPrice, 
+      createTime)
+    values (#{ord,jdbcType=BIGINT}, #{orderCode,jdbcType=VARCHAR}, #{userOrd,jdbcType=BIGINT}, 
+      #{status,jdbcType=INTEGER}, #{totalNum,jdbcType=INTEGER}, #{totalPrice,jdbcType=DECIMAL}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yxr.bookbusiness.mode.Order" >
+    insert into order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ord != null" >
+        ord,
+      </if>
+      <if test="orderCode != null" >
+        orderCode,
+      </if>
+      <if test="userOrd != null" >
+        userOrd,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="totalNum != null" >
+        totalNum,
+      </if>
+      <if test="totalPrice != null" >
+        totalPrice,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ord != null" >
+        #{ord,jdbcType=BIGINT},
+      </if>
+      <if test="orderCode != null" >
+        #{orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userOrd != null" >
+        #{userOrd,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="totalNum != null" >
+        #{totalNum,jdbcType=INTEGER},
+      </if>
+      <if test="totalPrice != null" >
+        #{totalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yxr.bookbusiness.mode.Order" >
+    update order
+    <set >
+      <if test="orderCode != null" >
+        orderCode = #{orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userOrd != null" >
+        userOrd = #{userOrd,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="totalNum != null" >
+        totalNum = #{totalNum,jdbcType=INTEGER},
+      </if>
+      <if test="totalPrice != null" >
+        totalPrice = #{totalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ord = #{ord,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yxr.bookbusiness.mode.Order" >
+    update order
+    set orderCode = #{orderCode,jdbcType=VARCHAR},
+      userOrd = #{userOrd,jdbcType=BIGINT},
+      status = #{status,jdbcType=INTEGER},
+      totalNum = #{totalNum,jdbcType=INTEGER},
+      totalPrice = #{totalPrice,jdbcType=DECIMAL},
+      createTime = #{createTime,jdbcType=TIMESTAMP}
+    where ord = #{ord,jdbcType=BIGINT}
+  </update>
+</mapper>

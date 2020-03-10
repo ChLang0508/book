@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yxr.bookbusiness.dao.StockMapper" >
+  <resultMap id="BaseResultMap" type="com.yxr.bookbusiness.mode.Stock" >
+    <id column="ord" property="ord" jdbcType="BIGINT" />
+    <result column="stockNum" property="stockNum" jdbcType="INTEGER" />
+    <result column="bookOrd" property="bookOrd" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ord, stockNum, bookOrd
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from stock
+    where ord = #{ord,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from stock
+    where ord = #{ord,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yxr.bookbusiness.mode.Stock" >
+    insert into stock (ord, stockNum, bookOrd
+      )
+    values (#{ord,jdbcType=BIGINT}, #{stockNum,jdbcType=INTEGER}, #{bookOrd,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yxr.bookbusiness.mode.Stock" >
+    insert into stock
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ord != null" >
+        ord,
+      </if>
+      <if test="stockNum != null" >
+        stockNum,
+      </if>
+      <if test="bookOrd != null" >
+        bookOrd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ord != null" >
+        #{ord,jdbcType=BIGINT},
+      </if>
+      <if test="stockNum != null" >
+        #{stockNum,jdbcType=INTEGER},
+      </if>
+      <if test="bookOrd != null" >
+        #{bookOrd,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yxr.bookbusiness.mode.Stock" >
+    update stock
+    <set >
+      <if test="stockNum != null" >
+        stockNum = #{stockNum,jdbcType=INTEGER},
+      </if>
+      <if test="bookOrd != null" >
+        bookOrd = #{bookOrd,jdbcType=BIGINT},
+      </if>
+    </set>
+    where ord = #{ord,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yxr.bookbusiness.mode.Stock" >
+    update stock
+    set stockNum = #{stockNum,jdbcType=INTEGER},
+      bookOrd = #{bookOrd,jdbcType=BIGINT}
+    where ord = #{ord,jdbcType=BIGINT}
+  </update>
+</mapper>

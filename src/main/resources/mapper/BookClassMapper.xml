@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yxr.bookbusiness.dao.BookClassMapper" >
+  <resultMap id="BaseResultMap" type="com.yxr.bookbusiness.mode.BookClass" >
+    <id column="ord" property="ord" jdbcType="BIGINT" />
+    <result column="className" property="className" jdbcType="VARCHAR" />
+    <result column="mark" property="mark" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ord, className, mark, createTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from bookclass
+    where ord = #{ord,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from bookclass
+    where ord = #{ord,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yxr.bookbusiness.mode.BookClass" >
+    insert into bookclass (ord, className, mark, 
+      createTime)
+    values (#{ord,jdbcType=BIGINT}, #{className,jdbcType=VARCHAR}, #{mark,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yxr.bookbusiness.mode.BookClass" >
+    insert into bookclass
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ord != null" >
+        ord,
+      </if>
+      <if test="className != null" >
+        className,
+      </if>
+      <if test="mark != null" >
+        mark,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ord != null" >
+        #{ord,jdbcType=BIGINT},
+      </if>
+      <if test="className != null" >
+        #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="mark != null" >
+        #{mark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yxr.bookbusiness.mode.BookClass" >
+    update bookclass
+    <set >
+      <if test="className != null" >
+        className = #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="mark != null" >
+        mark = #{mark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ord = #{ord,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yxr.bookbusiness.mode.BookClass" >
+    update bookclass
+    set className = #{className,jdbcType=VARCHAR},
+      mark = #{mark,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=TIMESTAMP}
+    where ord = #{ord,jdbcType=BIGINT}
+  </update>
+</mapper>

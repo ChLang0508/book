@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yxr.bookbusiness.dao.OrderDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.yxr.bookbusiness.mode.OrderDetail" >
+    <id column="ord" property="ord" jdbcType="BIGINT" />
+    <result column="orderOrd" property="orderOrd" jdbcType="BIGINT" />
+    <result column="bookOrd" property="bookOrd" jdbcType="BIGINT" />
+    <result column="bookName" property="bookName" jdbcType="VARCHAR" />
+    <result column="ISBN" property="ISBN" jdbcType="VARCHAR" />
+    <result column="bookPrice" property="bookPrice" jdbcType="DECIMAL" />
+    <result column="bookPress" property="bookPress" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ord, orderOrd, bookOrd, bookName, ISBN, bookPrice, bookPress
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from orderDetail
+    where ord = #{ord,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from orderDetail
+    where ord = #{ord,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yxr.bookbusiness.mode.OrderDetail" >
+    insert into orderDetail (ord, orderOrd, bookOrd, 
+      bookName, ISBN, bookPrice, 
+      bookPress)
+    values (#{ord,jdbcType=BIGINT}, #{orderOrd,jdbcType=BIGINT}, #{bookOrd,jdbcType=BIGINT}, 
+      #{bookName,jdbcType=VARCHAR}, #{ISBN,jdbcType=VARCHAR}, #{bookPrice,jdbcType=DECIMAL}, 
+      #{bookPress,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yxr.bookbusiness.mode.OrderDetail" >
+    insert into orderDetail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ord != null" >
+        ord,
+      </if>
+      <if test="orderOrd != null" >
+        orderOrd,
+      </if>
+      <if test="bookOrd != null" >
+        bookOrd,
+      </if>
+      <if test="bookName != null" >
+        bookName,
+      </if>
+      <if test="ISBN != null" >
+        ISBN,
+      </if>
+      <if test="bookPrice != null" >
+        bookPrice,
+      </if>
+      <if test="bookPress != null" >
+        bookPress,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ord != null" >
+        #{ord,jdbcType=BIGINT},
+      </if>
+      <if test="orderOrd != null" >
+        #{orderOrd,jdbcType=BIGINT},
+      </if>
+      <if test="bookOrd != null" >
+        #{bookOrd,jdbcType=BIGINT},
+      </if>
+      <if test="bookName != null" >
+        #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="ISBN != null" >
+        #{ISBN,jdbcType=VARCHAR},
+      </if>
+      <if test="bookPrice != null" >
+        #{bookPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="bookPress != null" >
+        #{bookPress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yxr.bookbusiness.mode.OrderDetail" >
+    update orderDetail
+    <set >
+      <if test="orderOrd != null" >
+        orderOrd = #{orderOrd,jdbcType=BIGINT},
+      </if>
+      <if test="bookOrd != null" >
+        bookOrd = #{bookOrd,jdbcType=BIGINT},
+      </if>
+      <if test="bookName != null" >
+        bookName = #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="ISBN != null" >
+        ISBN = #{ISBN,jdbcType=VARCHAR},
+      </if>
+      <if test="bookPrice != null" >
+        bookPrice = #{bookPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="bookPress != null" >
+        bookPress = #{bookPress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ord = #{ord,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yxr.bookbusiness.mode.OrderDetail" >
+    update orderDetail
+    set orderOrd = #{orderOrd,jdbcType=BIGINT},
+      bookOrd = #{bookOrd,jdbcType=BIGINT},
+      bookName = #{bookName,jdbcType=VARCHAR},
+      ISBN = #{ISBN,jdbcType=VARCHAR},
+      bookPrice = #{bookPrice,jdbcType=DECIMAL},
+      bookPress = #{bookPress,jdbcType=VARCHAR}
+    where ord = #{ord,jdbcType=BIGINT}
+  </update>
+</mapper>

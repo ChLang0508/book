@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yxr.bookbusiness.dao.BookMapper" >
+  <resultMap id="BaseResultMap" type="com.yxr.bookbusiness.mode.Book" >
+    <id column="ord" property="ord" jdbcType="BIGINT" />
+    <result column="bookName" property="bookName" jdbcType="VARCHAR" />
+    <result column="ISBN" property="ISBN" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="press" property="press" jdbcType="VARCHAR" />
+    <result column="bookClass" property="bookClass" jdbcType="BIGINT" />
+    <result column="mark" property="mark" jdbcType="VARCHAR" />
+    <result column="picture" property="picture" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ord, bookName, ISBN, price, press, bookClass, mark, picture, createTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from book
+    where ord = #{ord,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from book
+    where ord = #{ord,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yxr.bookbusiness.mode.Book" >
+    insert into book (ord, bookName, ISBN, 
+      price, press, bookClass, 
+      mark, picture, createTime
+      )
+    values (#{ord,jdbcType=BIGINT}, #{bookName,jdbcType=VARCHAR}, #{ISBN,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DECIMAL}, #{press,jdbcType=VARCHAR}, #{bookClass,jdbcType=BIGINT}, 
+      #{mark,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yxr.bookbusiness.mode.Book" >
+    insert into book
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ord != null" >
+        ord,
+      </if>
+      <if test="bookName != null" >
+        bookName,
+      </if>
+      <if test="ISBN != null" >
+        ISBN,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="press != null" >
+        press,
+      </if>
+      <if test="bookClass != null" >
+        bookClass,
+      </if>
+      <if test="mark != null" >
+        mark,
+      </if>
+      <if test="picture != null" >
+        picture,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ord != null" >
+        #{ord,jdbcType=BIGINT},
+      </if>
+      <if test="bookName != null" >
+        #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="ISBN != null" >
+        #{ISBN,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="press != null" >
+        #{press,jdbcType=VARCHAR},
+      </if>
+      <if test="bookClass != null" >
+        #{bookClass,jdbcType=BIGINT},
+      </if>
+      <if test="mark != null" >
+        #{mark,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null" >
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yxr.bookbusiness.mode.Book" >
+    update book
+    <set >
+      <if test="bookName != null" >
+        bookName = #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="ISBN != null" >
+        ISBN = #{ISBN,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="press != null" >
+        press = #{press,jdbcType=VARCHAR},
+      </if>
+      <if test="bookClass != null" >
+        bookClass = #{bookClass,jdbcType=BIGINT},
+      </if>
+      <if test="mark != null" >
+        mark = #{mark,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null" >
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ord = #{ord,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yxr.bookbusiness.mode.Book" >
+    update book
+    set bookName = #{bookName,jdbcType=VARCHAR},
+      ISBN = #{ISBN,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      press = #{press,jdbcType=VARCHAR},
+      bookClass = #{bookClass,jdbcType=BIGINT},
+      mark = #{mark,jdbcType=VARCHAR},
+      picture = #{picture,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=TIMESTAMP}
+    where ord = #{ord,jdbcType=BIGINT}
+  </update>
+</mapper>

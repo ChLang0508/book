@@ -1,7 +1,9 @@
 package com.yxr.bookbusiness.dao;
 
 import com.yxr.bookbusiness.mode.Stock;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface StockMapper {
     int deleteByPrimaryKey(Long ord);
 

@@ -1,7 +1,9 @@
 package com.yxr.bookbusiness.dao;
 
 import com.yxr.bookbusiness.mode.BookClass;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface BookClassMapper {
     int deleteByPrimaryKey(Long ord);
 

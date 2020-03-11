@@ -1,7 +1,9 @@
 package com.yxr.bookbusiness.dao;
 
 import com.yxr.bookbusiness.mode.Order;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface OrderMapper {
     int deleteByPrimaryKey(Long ord);
 

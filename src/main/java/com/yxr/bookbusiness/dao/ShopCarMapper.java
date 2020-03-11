@@ -1,7 +1,9 @@
 package com.yxr.bookbusiness.dao;
 
 import com.yxr.bookbusiness.mode.ShopCar;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface ShopCarMapper {
     int deleteByPrimaryKey(Long ord);
 

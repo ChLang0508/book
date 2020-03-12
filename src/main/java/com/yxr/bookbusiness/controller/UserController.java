@@ -15,6 +15,10 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 
+/**
+ * 用户，登录注册，注销登录等功能
+ */
+
 @RestController
 @RequestMapping("/user")
 public class UserController {

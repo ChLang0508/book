@@ -15,6 +15,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
+/**
+ * 图书信息
+ */
 @RestController
 @RequestMapping("/book")
 public class BookController {

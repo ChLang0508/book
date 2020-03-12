@@ -14,6 +14,12 @@ public class UserTool {
     @Resource
     private static RedisUtils redisUtils;
 
+    /**
+     * 用于获取当前登录用户，靠请求头部传递的token来获取
+     * @param request
+     * @return
+     * @throws Exception
+     */
     public static User getUser(HttpServletRequest request) throws Exception {
         String token = request.getHeader("token");
         if (StringUtils.isEmpty(token)) {

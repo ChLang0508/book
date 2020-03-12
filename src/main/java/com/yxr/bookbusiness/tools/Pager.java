@@ -3,6 +3,9 @@ package com.yxr.bookbusiness.tools;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * 分页信息，用于查询分页
+ */
 public class Pager implements Serializable {
 
     private List list;

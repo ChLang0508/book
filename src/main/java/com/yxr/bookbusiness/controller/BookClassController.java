@@ -14,6 +14,10 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+/**
+ * 图书类别
+ */
+
 @RestController
 @RequestMapping("/bookclass")
 public class BookClassController {

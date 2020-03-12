@@ -14,6 +14,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
+/**
+ * 购物车
+ */
 @RestController
 @RequestMapping("/shopcar")
 public class ShopCarController {

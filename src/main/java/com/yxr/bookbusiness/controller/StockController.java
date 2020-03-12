@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 
+/**
+ * 库存
+ */
 @RestController
 @RequestMapping("/stock")
 public class StockController {

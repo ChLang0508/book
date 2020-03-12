@@ -33,6 +33,14 @@ public class UserController {
         return new ResponseEntity<>(200, true, "登录成功", user);
     }
 
+    @RequestMapping("/admin")
+    public ResponseEntity<?> adminLogin(@RequestParam("phone") String phone,
+                                        @RequestParam("password") String password) throws Exception {
+
+        User user = loginService.adminLogin(phone, password);
+        return new ResponseEntity<>(200, true, "登录成功", user);
+    }
+
     @RequestMapping("/logout")
     public ResponseEntity<?> logout(HttpServletRequest request) throws Exception {
         User user = UserTool.getUser(request);

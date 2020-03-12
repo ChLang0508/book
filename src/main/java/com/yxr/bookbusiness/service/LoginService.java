@@ -31,6 +31,15 @@ public class LoginService {
         return user;
     }
 
+    public User adminLogin(String phone, String password) throws Exception {
+        User user = login(phone, password);
+        if (user.getRole() != 1) {
+            redisUtils.del(user.getToken());
+            throw new Exception("权限不足");
+        }
+        return user;
+    }
+
     public Boolean logout(String token) {
         redisUtils.del(token);
         return true;

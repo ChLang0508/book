@@ -1,9 +1,7 @@
 package com.yxr.bookbusiness.tools.redis;
 
 
-/**
- *
- */
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -15,6 +13,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+
+/**
+ *  redis工具类，提供各种操作redis的方法
+ */
 
 @Component
 public class RedisUtils {

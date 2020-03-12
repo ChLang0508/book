@@ -1,11 +1,5 @@
 package com.yxr.bookbusiness.tools;
 
-/**
- * Created by chLang on 2019/12/20
- */
-
-
-
 import com.yxr.bookbusiness.mode.ResponseEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +19,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * 提供全局异常捕获，对各种异常进行详细分类，并捕获用于抛出提示信息的异常
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler {
     private static Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);

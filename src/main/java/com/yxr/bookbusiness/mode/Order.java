@@ -2,6 +2,7 @@ package com.yxr.bookbusiness.mode;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class Order {
     private Long ord;
@@ -17,6 +18,26 @@ public class Order {
     private BigDecimal totalPrice;
 
     private Date createTime;
+
+    private List<OrderDetail> orderDetailList;
+
+    private String orderDetailListStr;
+
+    public List<OrderDetail> getOrderDetailList() {
+        return orderDetailList;
+    }
+
+    public void setOrderDetailList(List<OrderDetail> orderDetailList) {
+        this.orderDetailList = orderDetailList;
+    }
+
+    public String getOrderDetailListStr() {
+        return orderDetailListStr;
+    }
+
+    public void setOrderDetailListStr(String orderDetailListStr) {
+        this.orderDetailListStr = orderDetailListStr;
+    }
 
     public Long getOrd() {
         return ord;

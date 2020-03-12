@@ -16,6 +16,7 @@
     from bookclass
     where ord = #{ord,jdbcType=BIGINT}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from bookclass
     where ord = #{ord,jdbcType=BIGINT}
@@ -79,4 +80,14 @@
       createTime = #{createTime,jdbcType=TIMESTAMP}
     where ord = #{ord,jdbcType=BIGINT}
   </update>
+
+  <select id="getList" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from bookclass
+    where 1=1
+    <include refid="whereSql"/>
+  </select>
+  <sql id="whereSql">
+
+  </sql>
 </mapper>

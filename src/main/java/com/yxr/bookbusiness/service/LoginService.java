@@ -4,11 +4,13 @@ import com.yxr.bookbusiness.dao.UserMapper;
 import com.yxr.bookbusiness.mode.User;
 import com.yxr.bookbusiness.tools.redis.RedisUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.UUID;
 
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class LoginService {
     private static final Long TTL = (long) 60 * 60 * 24;
     @Resource

@@ -1,7 +1,10 @@
 package com.yxr.bookbusiness.dao;
 
 import com.yxr.bookbusiness.mode.OrderDetail;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface OrderDetailMapper {
@@ -16,4 +19,8 @@ public interface OrderDetailMapper {
     int updateByPrimaryKeySelective(OrderDetail record);
 
     int updateByPrimaryKey(OrderDetail record);
+
+    List<OrderDetail> getListByOrderId(@Param("orderOrd") Long orderOrd);
+
+    int delByOrderOrd(@Param("orderId")Long orderId);
 }

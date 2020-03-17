@@ -31,7 +31,7 @@
       #{status,jdbcType=INTEGER}, #{totalNum,jdbcType=INTEGER}, #{totalPrice,jdbcType=DECIMAL}, 
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.yxr.bookbusiness.mode.Order" >
+  <insert id="insertSelective" parameterType="com.yxr.bookbusiness.mode.Order" useGeneratedKeys="true" keyColumn="ord" keyProperty="ord">
     insert into order
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="ord != null" >
@@ -114,4 +114,23 @@
       createTime = #{createTime,jdbcType=TIMESTAMP}
     where ord = #{ord,jdbcType=BIGINT}
   </update>
+
+  <select id="getList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from "order"
+    where 1=1
+    <include refid="whereSql"/>
+    order by ord DESC
+    LIMIT #{pager.start},#{pager.pageSize}
+  </select>
+  <select id="getListCount" resultType="java.lang.Integer">
+    select count(*) from "order"
+    where 1=1
+    <include refid="whereSql"/>
+  </select>
+
+  <sql id="whereSql">
+
+  </sql>
 </mapper>

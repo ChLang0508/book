@@ -9,9 +9,10 @@
     <result column="ISBN" property="ISBN" jdbcType="VARCHAR" />
     <result column="bookPrice" property="bookPrice" jdbcType="DECIMAL" />
     <result column="bookPress" property="bookPress" jdbcType="VARCHAR" />
+    <result column="bookNum" property="bookNum" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ord, orderOrd, bookOrd, bookName, ISBN, bookPrice, bookPress
+    ord, orderOrd, bookOrd, bookName, ISBN, bookPrice, bookPress,bookNum
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -19,17 +20,19 @@
     from orderDetail
     where ord = #{ord,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from orderDetail
     where ord = #{ord,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.yxr.bookbusiness.mode.OrderDetail" >
+
+    <insert id="insert" parameterType="com.yxr.bookbusiness.mode.OrderDetail" >
     insert into orderDetail (ord, orderOrd, bookOrd, 
       bookName, ISBN, bookPrice, 
-      bookPress)
+      bookPress,bookNum)
     values (#{ord,jdbcType=BIGINT}, #{orderOrd,jdbcType=BIGINT}, #{bookOrd,jdbcType=BIGINT}, 
       #{bookName,jdbcType=VARCHAR}, #{ISBN,jdbcType=VARCHAR}, #{bookPrice,jdbcType=DECIMAL}, 
-      #{bookPress,jdbcType=VARCHAR})
+      #{bookPress,jdbcType=VARCHAR},#{bookNum,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.yxr.bookbusiness.mode.OrderDetail" >
     insert into orderDetail
@@ -55,6 +58,9 @@
       <if test="bookPress != null" >
         bookPress,
       </if>
+      <if test="bookNum != null" >
+        bookNum,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="ord != null" >
@@ -77,6 +83,9 @@
       </if>
       <if test="bookPress != null" >
         #{bookPress,jdbcType=VARCHAR},
+      </if>
+      <if test="bookNum != null" >
+        #{bookNum,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -101,6 +110,9 @@
       <if test="bookPress != null" >
         bookPress = #{bookPress,jdbcType=VARCHAR},
       </if>
+      <if test="bookNum != null" >
+        bookNum = #{bookNum,jdbcType=INTEGER},
+      </if>
     </set>
     where ord = #{ord,jdbcType=BIGINT}
   </update>
@@ -111,7 +123,19 @@
       bookName = #{bookName,jdbcType=VARCHAR},
       ISBN = #{ISBN,jdbcType=VARCHAR},
       bookPrice = #{bookPrice,jdbcType=DECIMAL},
-      bookPress = #{bookPress,jdbcType=VARCHAR}
+      bookPress = #{bookPress,jdbcType=VARCHAR},
+      bookNum = #{bookNum,jdbcType=INTEGER}
     where ord = #{ord,jdbcType=BIGINT}
   </update>
+
+  <select id="getListByOrderId" resultType="com.yxr.bookbusiness.mode.OrderDetail">
+    select <include refid="Base_Column_List"/>
+    from orderDetail
+    where orderOrd= #{orderOrd,jdbcType=BIGINT}
+  </select>
+
+  <delete id="delByOrderOrd">
+    delete from orderDetail
+    where orderOrd = #{orderId,jdbcType=BIGINT}
+  </delete>
 </mapper>

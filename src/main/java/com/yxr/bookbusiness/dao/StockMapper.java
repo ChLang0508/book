@@ -1,7 +1,12 @@
 package com.yxr.bookbusiness.dao;
 
 import com.yxr.bookbusiness.mode.Stock;
+import com.yxr.bookbusiness.mode.Stock;
+import com.yxr.bookbusiness.tools.Pager;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface StockMapper {
@@ -16,4 +21,10 @@ public interface StockMapper {
     int updateByPrimaryKeySelective(Stock record);
 
     int updateByPrimaryKey(Stock record);
+
+    List<Stock> getList(@Param("page") Pager pager, @Param("stock")Stock stock);
+
+    int getListCount(@Param("stock")Stock stock);
+
+    Stock selectByBookOrd(@Param("bookOrd")Long bookOrd);
 }

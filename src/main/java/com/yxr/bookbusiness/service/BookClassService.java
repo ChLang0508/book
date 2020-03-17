@@ -3,11 +3,13 @@ package com.yxr.bookbusiness.service;
 import com.yxr.bookbusiness.dao.BookClassMapper;
 import com.yxr.bookbusiness.mode.BookClass;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class BookClassService {
 
     @Resource

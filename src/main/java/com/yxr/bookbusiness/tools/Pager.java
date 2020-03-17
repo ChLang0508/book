@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class Pager implements Serializable {
 
-    private List list;
+    private List<?> list;
     private int pageNumber = 1;
     private int pageSize = 20; //设置默认的pageSize;
     private int totalPage;
@@ -36,7 +36,7 @@ public class Pager implements Serializable {
         this.pageType = pageType;
     }
 
-    public Pager(List list, Integer pageNumber, Integer pageSize, int totalRow) {
+    public Pager(List<?> list, Integer pageNumber, Integer pageSize, int totalRow) {
         this.list = list;
         this.pageNumber = pageNumber;
         this.pageSize = pageSize == 0 ? 20 : pageSize;
@@ -52,11 +52,11 @@ public class Pager implements Serializable {
         this.start = start;
     }
 
-    public List getList() {
+    public List<?> getList() {
         return list;
     }
 
-    public void setList(List list) {
+    public void setList(List<?> list) {
         this.list = list;
     }
 

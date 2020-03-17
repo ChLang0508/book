@@ -17,6 +17,16 @@ public class OrderDetail {
 
     private String bookPress;
 
+    private Integer bookNum;
+
+    public Integer getBookNum() {
+        return bookNum;
+    }
+
+    public void setBookNum(Integer bookNum) {
+        this.bookNum = bookNum;
+    }
+
     public Long getOrd() {
         return ord;
     }

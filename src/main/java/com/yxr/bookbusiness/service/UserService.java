@@ -4,6 +4,7 @@ import com.yxr.bookbusiness.dao.UserMapper;
 import com.yxr.bookbusiness.mode.User;
 import com.yxr.bookbusiness.tools.Pager;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
@@ -11,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class UserService {
 
     @Resource
@@ -42,8 +44,9 @@ public class UserService {
     }
 
     public Pager getList(Pager pager,User user){
-        List<User> list=userMapper.getList(pager, user);
+        List<User> list = userMapper.getList(pager, user);
         pager.setList(list);
+        pager.setTotalRow(userMapper.getListCount(user));
         return pager;
     }
 }

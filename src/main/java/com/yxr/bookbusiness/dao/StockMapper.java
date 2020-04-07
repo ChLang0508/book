@@ -22,7 +22,7 @@ public interface StockMapper {
 
     int updateByPrimaryKey(Stock record);
 
-    List<Stock> getList(@Param("page") Pager pager, @Param("stock")Stock stock);
+    List<Stock> getList(@Param("pager") Pager pager, @Param("stock")Stock stock);
 
     int getListCount(@Param("stock")Stock stock);
 

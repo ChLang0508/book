@@ -6,6 +6,7 @@ import com.yxr.bookbusiness.mode.User;
 import com.yxr.bookbusiness.service.BookClassService;
 import com.yxr.bookbusiness.tools.UserTool;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,7 @@ import java.util.List;
  */
 
 @RestController
+@CrossOrigin
 @RequestMapping("/bookclass")
 public class BookClassController {
 

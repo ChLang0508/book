@@ -7,6 +7,7 @@ import com.yxr.bookbusiness.mode.User;
 import com.yxr.bookbusiness.service.OrderService;
 import com.yxr.bookbusiness.tools.Pager;
 import com.yxr.bookbusiness.tools.UserTool;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,7 @@ import java.util.Date;
  * 订单系统
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/order")
 public class OrderController {
     @Resource

@@ -12,12 +12,18 @@
     <artifactId>book-business</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>book-business</name>
+    <packaging>war</packaging>
     <description>Demo project for Spring Boot</description>
    <properties>
         <java.version>1.8</java.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
         <dependency>
             <groupId>com.alibaba</groupId>

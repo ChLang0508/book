@@ -6,6 +6,7 @@ import com.yxr.bookbusiness.mode.User;
 import com.yxr.bookbusiness.service.ShopCarService;
 import com.yxr.bookbusiness.tools.Pager;
 import com.yxr.bookbusiness.tools.UserTool;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,7 @@ import java.util.Date;
  * 购物车
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/shopcar")
 public class ShopCarController {
     @Resource

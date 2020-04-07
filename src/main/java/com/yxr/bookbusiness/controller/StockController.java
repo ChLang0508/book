@@ -6,6 +6,7 @@ import com.yxr.bookbusiness.mode.User;
 import com.yxr.bookbusiness.service.StockService;
 import com.yxr.bookbusiness.tools.Pager;
 import com.yxr.bookbusiness.tools.UserTool;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
  * 库存
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/stock")
 public class StockController {
     @Resource

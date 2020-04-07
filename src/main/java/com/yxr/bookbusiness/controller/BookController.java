@@ -7,6 +7,7 @@ import com.yxr.bookbusiness.mode.User;
 import com.yxr.bookbusiness.service.BookService;
 import com.yxr.bookbusiness.tools.Pager;
 import com.yxr.bookbusiness.tools.UserTool;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,7 @@ import java.util.Date;
  * 图书信息
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/book")
 public class BookController {
 

@@ -22,7 +22,7 @@ public interface BookMapper {
 
     int updateByPrimaryKey(Book record);
 
-    List<Book> getList(@Param("page") Pager pager, @Param("book")Book book);
+    List<Book> getList(@Param("pager") Pager pager, @Param("book")Book book);
 
     int getListCount(@Param("book")Book book);
 }

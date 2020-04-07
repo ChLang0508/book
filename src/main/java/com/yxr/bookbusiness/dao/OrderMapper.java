@@ -22,7 +22,7 @@ public interface OrderMapper {
 
     int updateByPrimaryKey(Order record);
 
-    List<Order> getList(@Param("page") Pager pager, @Param("order")Order order);
+    List<Order> getList(@Param("pager") Pager pager, @Param("order")Order order);
 
     int getListCount(@Param("order")Order order);
 }

@@ -23,7 +23,7 @@ public interface UserMapper {
 
     User selectByPhone(@Param("phone") String phone);
 
-    List<User> getList(@Param("page")Pager pager,@Param("user")User user);
+    List<User> getList(@Param("pager")Pager pager,@Param("user")User user);
 
     int getListCount(@Param("user")User user);
 }

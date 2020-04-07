@@ -2,16 +2,16 @@ package com.yxr.bookbusiness.tools;
 
 import com.yxr.bookbusiness.mode.User;
 import com.yxr.bookbusiness.tools.redis.RedisUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 @Component
 public class UserTool {
 
-    @Resource
+    @Autowired
     private static RedisUtils redisUtils;
 
     /**

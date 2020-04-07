@@ -22,7 +22,7 @@ public interface ShopCarMapper {
 
     int updateByPrimaryKey(ShopCar record);
 
-    List<ShopCar> getList(@Param("page") Pager pager, @Param("shopCar")ShopCar shopCar);
+    List<ShopCar> getList(@Param("pager") Pager pager, @Param("shopCar")ShopCar shopCar);
 
     int getListCount(@Param("shopCar")ShopCar shopCar);
 }

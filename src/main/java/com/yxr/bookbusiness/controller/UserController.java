@@ -6,10 +6,7 @@ import com.yxr.bookbusiness.service.LoginService;
 import com.yxr.bookbusiness.service.UserService;
 import com.yxr.bookbusiness.tools.Pager;
 import com.yxr.bookbusiness.tools.UserTool;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +17,7 @@ import java.math.BigDecimal;
  */
 
 @RestController
+@CrossOrigin
 @RequestMapping("/user")
 public class UserController {
 

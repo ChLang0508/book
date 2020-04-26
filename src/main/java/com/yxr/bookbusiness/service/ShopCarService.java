@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -25,7 +26,15 @@ public class ShopCarService {
         if (temp == null) {
             throw new Exception("图书信息不存在");
         }
-        return shopCarMapper.insertSelective(shopCar) == 1;
+        ShopCar shopCar1 = shopCarMapper.getByUserAndBook(shopCar.getUserId(), shopCar.getBookId());
+        if (shopCar1 == null) {
+            return shopCarMapper.insertSelective(shopCar) == 1;
+        } else {
+            shopCar.setOrd(shopCar1.getOrd());
+            shopCar.setNum(shopCar1.getNum() + shopCar.getNum());
+            return shopCarMapper.updateByPrimaryKeySelective(shopCar) == 1;
+        }
+
     }
 
     public Boolean update(ShopCar shopCar) throws Exception {
@@ -55,7 +64,7 @@ public class ShopCarService {
     }
 
     public Pager list(Pager pager, ShopCar shopCar) throws Exception {
-        List<ShopCar> list = shopCarMapper.getList(pager, shopCar);
+        List<Map<String, Object>> list = shopCarMapper.getList(pager, shopCar);
         pager.setList(list);
         pager.setTotalRow(shopCarMapper.getListCount(shopCar));
         return pager;

@@ -91,13 +91,12 @@
     where ord = #{ord,jdbcType=BIGINT}
   </update>
 
-  <select id="getList" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
-    from shopcar
+  <select id="getList" resultType="map">
+    select s.*,b.bookName,b.price,b.ISBN,b.picture,b.press
+    from shopcar as s inner join book b on s.bookId = b.ord
     where 1=1
     <include refid="whereSql"/>
-    order by ord DESC
+    order by s.ord DESC
     LIMIT #{pager.start},#{pager.pageSize}
   </select>
   <select id="getListCount" resultType="java.lang.Integer">
@@ -106,6 +105,12 @@
     <include refid="whereSql"/>
   </select>
 
+  <select id="getByUserAndBook" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from shopcar
+    where userId = #{userID,jdbcType=BIGINT}
+    and bookId = #{bookID,jdbcType=BIGINT}
+  </select>
   <sql id="whereSql">
 
   </sql>

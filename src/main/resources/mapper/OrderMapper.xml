@@ -16,15 +16,15 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    from order
+    from `order`
     where ord = #{ord,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from order
+    delete from `order`
     where ord = #{ord,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.yxr.bookbusiness.mode.Order" >
-    insert into order (ord, orderCode, userOrd, 
+    insert into `order` (ord, orderCode, userOrd,
       status, totalNum, totalPrice, 
       createTime)
     values (#{ord,jdbcType=BIGINT}, #{orderCode,jdbcType=VARCHAR}, #{userOrd,jdbcType=BIGINT}, 
@@ -32,7 +32,7 @@
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.yxr.bookbusiness.mode.Order" useGeneratedKeys="true" keyColumn="ord" keyProperty="ord">
-    insert into order
+    insert into `order`
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="ord != null" >
         ord,
@@ -81,7 +81,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.yxr.bookbusiness.mode.Order" >
-    update order
+    update `order`
     <set >
       <if test="orderCode != null" >
         orderCode = #{orderCode,jdbcType=VARCHAR},
@@ -105,7 +105,7 @@
     where ord = #{ord,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.yxr.bookbusiness.mode.Order" >
-    update order
+    update `order`
     set orderCode = #{orderCode,jdbcType=VARCHAR},
       userOrd = #{userOrd,jdbcType=BIGINT},
       status = #{status,jdbcType=INTEGER},
@@ -118,19 +118,22 @@
   <select id="getList" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
-    from "order"
+    from `order`
     where 1=1
     <include refid="whereSql"/>
     order by ord DESC
     LIMIT #{pager.start},#{pager.pageSize}
   </select>
+
   <select id="getListCount" resultType="java.lang.Integer">
-    select count(*) from "order"
+    select count(*) from `order`
     where 1=1
     <include refid="whereSql"/>
   </select>
 
   <sql id="whereSql">
-
+    <if test="order.userOrd != null" >
+     and  userOrd = #{order.userOrd,jdbcType=BIGINT}
+    </if>
   </sql>
 </mapper>

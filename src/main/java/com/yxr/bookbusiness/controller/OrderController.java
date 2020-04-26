@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 /**
@@ -28,9 +29,10 @@ public class OrderController {
 
     @RequestMapping("/list")
     public ResponseEntity<?> list(HttpServletRequest request,
+                                  HttpServletResponse response,
                                   Pager pager,
                                   Order order) throws Exception {
-        User currentUser = UserTool.getUser(request);
+        User currentUser = UserTool.getUser(request, response);
         if (currentUser.getRole() != 1) {
             order.setUserOrd(currentUser.getOrd());
         }
@@ -38,10 +40,25 @@ public class OrderController {
         return new ResponseEntity<>(200, true, "查询成功", pager);
     }
 
+    @RequestMapping("/getorder")
+    public ResponseEntity<?> list(HttpServletRequest request,
+                                  HttpServletResponse response,
+                                  Long orderID) throws Exception {
+        User currentUser = UserTool.getUser(request, response);
+        Order order = orderService.getOrderByID(orderID);
+        if (!order.getUserOrd().equals(currentUser.getOrd())) {
+            return new ResponseEntity<>(401, false, "订单不存在", null);
+        }
+        return new ResponseEntity<>(200, true, "查询成功", order);
+
+
+    }
+
     @RequestMapping("/add")
     public ResponseEntity<?> add(HttpServletRequest request,
+                                 HttpServletResponse response,
                                  @RequestBody Order order) throws Exception {
-        User currentUser = UserTool.getUser(request);
+        User currentUser = UserTool.getUser(request, response);
         if (order.getOrderDetailListStr() == null) {
             return new ResponseEntity<>(400, false, "订单明细不能为空", null);
         }
@@ -49,6 +66,7 @@ public class OrderController {
         order.setOrd(null);
         order.setCreateTime(new Date());
         order.setUserOrd(currentUser.getOrd());
+        order.setStatus(1);
 
         Boolean result = orderService.add(order);
         if (result) {
@@ -74,12 +92,13 @@ public class OrderController {
 
     @RequestMapping("/del")
     public ResponseEntity<?> del(HttpServletRequest request,
+                                 HttpServletResponse response,
                                  Order order) throws Exception {
-        User currentUser = UserTool.getUser(request);
+        User currentUser = UserTool.getUser(request, response);
         if (currentUser.getRole() != 1) {
             order.setUserOrd(currentUser.getOrd());
         }
-        if(order.getOrd()==null){
+        if (order.getOrd() == null) {
             return new ResponseEntity<>(400, false, "请选择需要删除的条目", null);
         }
         Boolean result = orderService.del(order);

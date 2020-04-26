@@ -22,6 +22,16 @@ public class Book {
 
     private Date createTime;
 
+    private String bookClassName;
+
+    public String getBookClassName() {
+        return bookClassName;
+    }
+
+    public void setBookClassName(String bookClassName) {
+        this.bookClassName = bookClassName;
+    }
+
     public Long getOrd() {
         return ord;
     }

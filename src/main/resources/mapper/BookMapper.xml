@@ -155,6 +155,8 @@
   </select>
 
   <sql id="whereSql">
-
+    <if test="book.bookName != null" >
+     and  bookName like concat('%',#{book.bookName,jdbcType=VARCHAR},'%')
+    </if>
   </sql>
 </mapper>

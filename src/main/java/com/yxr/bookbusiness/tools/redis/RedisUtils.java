@@ -149,6 +149,7 @@ public class RedisUtils {
             }
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             //log.error(key, e);
             return false;
         }

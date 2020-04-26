@@ -36,5 +36,8 @@ public class BookClassService {
     public List<BookClass> list(BookClass bookClass) {
         return bookClassMapper.getList(bookClass);
     }
+    public BookClass getBookClass(Long bookClass) {
+        return bookClassMapper.selectByPrimaryKey(bookClass);
+    }
 
 }

@@ -46,10 +46,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> nullPointerExceptionHandler(NullPointerException ex) {
         System.err.println("NullPointerException:");
         ex.printStackTrace();
-        Map<String, Object> r = new HashMap<>();
-        r.put("msg","空指针异常");
-        r.put("detail",ex.getMessage());
-        return new ResponseEntity<>(1500, false, null, r);
+        return new ResponseEntity<>(1500, false, "空指针异常", ex.getMessage());
     }
 
     //类型转换异常
@@ -57,10 +54,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public ResponseEntity<?> classCastExceptionHandler(ClassCastException ex) {
         ex.printStackTrace();
-        Map<String, Object> r = new HashMap<>();
-        r.put("msg","类型转换异常");
-        r.put("detail",ex.getMessage());
-        return new ResponseEntity<>(1500, false, null, r);
+        return new ResponseEntity<>(1500, false, "类型转换异常", ex.getMessage());
     }
 
     //IO异常
@@ -68,10 +62,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public ResponseEntity<?> iOExceptionHandler(IOException ex) {
         ex.printStackTrace();
-        Map<String, Object> r = new HashMap<>();
-        r.put("msg","IO异常");
-        r.put("detail",ex.getMessage());
-        return new ResponseEntity<>(1500, false, null, r);
+        return new ResponseEntity<>(1500, false, "IO异常", ex.getMessage());
     }
 
     //未知方法异常
@@ -79,10 +70,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public ResponseEntity<?> noSuchMethodExceptionHandler(NoSuchMethodException ex) {
         ex.printStackTrace();
-        Map<String, Object> r = new HashMap<>();
-        r.put("msg","未知方法异常");
-        r.put("detail",ex.getMessage());
-        return new ResponseEntity<>(1500, false, null, r);
+        return new ResponseEntity<>(1500, false, "未知方法异常", ex.getMessage());
     }
 
     //数组越界异常
@@ -90,10 +78,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public ResponseEntity<?> indexOutOfBoundsExceptionHandler(IndexOutOfBoundsException ex) {
         ex.printStackTrace();
-        Map<String, Object> r = new HashMap<>();
-        r.put("msg","数组越界异常");
-        r.put("detail",ex.getMessage());
-        return new ResponseEntity<>(1500, false, null, r);
+        return new ResponseEntity<>(1500, false, "数组越界异常", ex.getMessage());
     }
 
     //1400错误
@@ -102,10 +87,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> requestNotReadable(HttpMessageNotReadableException ex) {
         System.out.println("1400..requestNotReadable");
         ex.printStackTrace();
-        Map<String, Object> r = new HashMap<>();
-        r.put("msg","Http消息不可读");
-        r.put("detail",ex.getMessage());
-        return new ResponseEntity<>(1400, false, null, r);
+        return new ResponseEntity<>(1400, false, "Http消息不可读", ex.getMessage());
     }
 
     //1400错误
@@ -114,10 +96,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> requestTypeMismatch(TypeMismatchException ex) {
         System.out.println("1400..TypeMismatchException");
         ex.printStackTrace();
-        Map<String, Object> r = new HashMap<>();
-        r.put("msg","类型不匹配");
-        r.put("detail",ex.getMessage());
-        return new ResponseEntity<>(1400, false, null, r);
+        return new ResponseEntity<>(1400, false, "类型不匹配", ex.getMessage());
     }
 
     //1400错误
@@ -126,10 +105,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> requestMissingServletRequest(MissingServletRequestParameterException ex) {
         System.out.println("1400..MissingServletRequest");
         ex.printStackTrace();
-        Map<String, Object> r = new HashMap<>();
-        r.put("msg","缺少Servlet请求参数");
-        r.put("detail",ex.getMessage());
-        return new ResponseEntity<>(1400, false, null, r);
+        return new ResponseEntity<>(1400, false, "缺少Servlet请求参数", ex.getMessage());
     }
 
     //404错误
@@ -138,11 +114,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> requestNoHandlerFoundExceptionRequest(NoHandlerFoundException ex) {
         System.out.println("404 url not found");
         ex.printStackTrace();
-        Map<String, Object> r = new HashMap<>();
-        r.put("msg","404 url not found");
-        r.put("detail",ex.getMessage());
-
-        return new ResponseEntity<>(404, false, null, r);
+        return new ResponseEntity<>(404, false, "404 url not found", ex.getMessage());
     }
 
     //405错误
@@ -150,10 +122,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public ResponseEntity<?> request405(HttpRequestMethodNotSupportedException ex) {
         ex.printStackTrace();
-        Map<String, Object> r = new HashMap<>();
-        r.put("msg","不支持Http请求方法");
-        r.put("detail",ex.getMessage());
-        return new ResponseEntity<>(405, false, null, r);
+        return new ResponseEntity<>(405, false, "不支持Http请求方法", ex.getMessage());
     }
 
     //406错误
@@ -162,10 +131,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> request406(HttpMediaTypeNotAcceptableException ex) {
         System.out.println("406...");
         ex.printStackTrace();
-        Map<String, Object> r = new HashMap<>();
-        r.put("msg","Http媒体类型不可接受");
-        r.put("detail",ex.getMessage());
-        return new ResponseEntity<>(406, false, null, r);
+        return new ResponseEntity<>(406, false, "Http媒体类型不可接受", ex.getMessage());
     }
 
     //1500错误
@@ -174,10 +140,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> server1500(RuntimeException ex) {
         System.out.println("1500...");
         ex.printStackTrace();
-        Map<String, Object> r = new HashMap<>();
-        r.put("msg","ConversionNotSupported");
-        r.put("detail",ex.getMessage());
-        return new ResponseEntity<>(1500, false, null, r);
+        return new ResponseEntity<>(1500, false, "ConversionNotSupported", ex.getMessage());
     }
 
     //栈溢出
@@ -185,10 +148,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public ResponseEntity<?> requestStackOverflow(StackOverflowError ex) {
         ex.printStackTrace();
-        Map<String, Object> r = new HashMap<>();
-        r.put("msg","栈溢出");
-        r.put("detail",ex.getMessage());
-        return new ResponseEntity<>(1500, false, null, r);
+        return new ResponseEntity<>(1500, false, "栈溢出", ex.getMessage());
     }
 
     //除数不能为0
@@ -196,10 +156,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public ResponseEntity<?> arithmeticException(ArithmeticException ex) {
         ex.printStackTrace();
-        Map<String, Object> r = new HashMap<>();
-        r.put("msg","除数不能为0");
-        r.put("detail",ex.getMessage());
-        return new ResponseEntity<>(1500, false, null, r);
+        return new ResponseEntity<>(1500, false, "除数不能为0", ex.getMessage());
     }
 
 

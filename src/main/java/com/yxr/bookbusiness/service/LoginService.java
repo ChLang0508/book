@@ -3,6 +3,7 @@ package com.yxr.bookbusiness.service;
 import com.yxr.bookbusiness.dao.UserMapper;
 import com.yxr.bookbusiness.mode.User;
 import com.yxr.bookbusiness.tools.redis.RedisUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,7 +14,8 @@ import java.util.UUID;
 @Transactional(rollbackFor = Exception.class)
 public class LoginService {
     private static final Long TTL = (long) 60 * 60 * 24;
-    @Resource
+
+    @Autowired
     private RedisUtils redisUtils;
     @Resource
     private UserMapper userMapper;
@@ -28,7 +30,7 @@ public class LoginService {
         }
         String token = UUID.randomUUID().toString();
         user.setToken(token);
-        redisUtils.set(token, user, TTL);
+        boolean a=redisUtils.set(token, user, TTL);
 
         return user;
     }

@@ -26,7 +26,7 @@
     where ord = #{ord,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.yxr.bookbusiness.mode.User" >
-    insert into usr (ord, phone, username, 
+    insert into usr (ord, phone, username,
       pass, role, balance, 
       createTime, address)
     values (#{ord,jdbcType=BIGINT}, #{phone,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 

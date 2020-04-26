@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 库存
@@ -26,26 +27,28 @@ public class StockController {
 
     @RequestMapping("/list")
     public ResponseEntity<?> list(HttpServletRequest request,
+                                  HttpServletResponse response,
                                   Pager pager,
                                   Stock stock) throws Exception {
-        User currentUser = UserTool.getUser(request);
+        User currentUser = UserTool.getUser(request, response);
         if (currentUser.getRole() != 1) {
             return new ResponseEntity<>(401, false, "权限不足", null);
         }
-        pager=stockService.list(pager, stock);
+        pager = stockService.list(pager, stock);
         return new ResponseEntity<>(200, true, "查询成功", pager);
     }
 
     @RequestMapping("/add")
     public ResponseEntity<?> add(HttpServletRequest request,
-                                 @RequestBody Stock stock) throws Exception{
-        User currentUser = UserTool.getUser(request);
+                                 HttpServletResponse response,
+                                 @RequestBody Stock stock) throws Exception {
+        User currentUser = UserTool.getUser(request, response);
         if (currentUser.getRole() != 1) {
             return new ResponseEntity<>(401, false, "权限不足", null);
         }
         stock.setOrd(null);
 
-        Boolean result=stockService.add(stock);
+        Boolean result = stockService.add(stock);
         if (result) {
             return new ResponseEntity<>(200, true, "新增成功", null);
         } else {
@@ -56,8 +59,9 @@ public class StockController {
 
     @RequestMapping("/update")
     public ResponseEntity<?> update(HttpServletRequest request,
-                                    @RequestBody Stock stock)throws Exception {
-        User currentUser = UserTool.getUser(request);
+                                    HttpServletResponse response,
+                                    @RequestBody Stock stock) throws Exception {
+        User currentUser = UserTool.getUser(request, response);
         if (currentUser.getRole() != 1) {
             return new ResponseEntity<>(401, false, "权限不足", null);
         }
@@ -78,9 +82,10 @@ public class StockController {
 
     @RequestMapping("/del")
     public ResponseEntity<?> del(HttpServletRequest request,
-                                 Long ord) throws Exception{
+                                 HttpServletResponse response,
+                                 Long ord) throws Exception {
 
-        User currentUser = UserTool.getUser(request);
+        User currentUser = UserTool.getUser(request, response);
         if (currentUser.getRole() != 1) {
             return new ResponseEntity<>(401, false, "权限不足", null);
         }

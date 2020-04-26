@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 
 /**
@@ -44,8 +45,8 @@ public class UserController {
     }
 
     @RequestMapping("/logout")
-    public ResponseEntity<?> logout(HttpServletRequest request) throws Exception {
-        User user = UserTool.getUser(request);
+    public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        User user = UserTool.getUser(request, response);
 
         Boolean result = loginService.logout(user.getToken());
         if (!result) {
@@ -70,8 +71,9 @@ public class UserController {
 
     @RequestMapping("/add")
     public ResponseEntity<?> add(HttpServletRequest request,
+                                 HttpServletResponse response,
                                  @RequestBody User user) throws Exception {
-        User currentUser = UserTool.getUser(request);
+        User currentUser = UserTool.getUser(request, response);
         if (currentUser.getRole() != 1) {
             return new ResponseEntity<>(401, false, "权限不足", null);
         }
@@ -86,8 +88,9 @@ public class UserController {
 
     @RequestMapping("/update")
     public ResponseEntity<?> update(HttpServletRequest request,
+                                    HttpServletResponse response,
                                     @RequestBody User user) throws Exception {
-        User currentUser = UserTool.getUser(request);
+        User currentUser = UserTool.getUser(request, response);
         user.setOrd(currentUser.getOrd());
         Boolean result = userService.updateUser(user);
         if (result) {
@@ -98,8 +101,9 @@ public class UserController {
 
     @RequestMapping("/del")
     public ResponseEntity<?> del(HttpServletRequest request,
+                                 HttpServletResponse response,
                                  Long ord) throws Exception {
-        User currentUser = UserTool.getUser(request);
+        User currentUser = UserTool.getUser(request, response);
         if (currentUser.getRole() != 1) {
             return new ResponseEntity<>(401, false, "权限不足", null);
         }
@@ -113,9 +117,10 @@ public class UserController {
     @RequestMapping("/list")
     public ResponseEntity<?> list(User user,
                                   Pager pager,
-                                  HttpServletRequest request) throws Exception {
+                                  HttpServletRequest request,
+                                  HttpServletResponse response) throws Exception {
 
-        User currentUser = UserTool.getUser(request);
+        User currentUser = UserTool.getUser(request, response);
         if (currentUser.getRole() != 1) {
             return new ResponseEntity<>(401, false, "权限不足", null);
         }

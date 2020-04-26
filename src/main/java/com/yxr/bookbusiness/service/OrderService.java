@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -38,8 +39,11 @@ public class OrderService {
         if (orderMapper.insertSelective(order) != 1) {
             throw new Exception("单据新增失败，未知错误");
         }
-
         List<OrderDetail> orderDetailList = JSONArray.parseArray(order.getOrderDetailListStr(), OrderDetail.class);
+
+        BigDecimal totalPrice = new BigDecimal(0);
+        int totalNum = 0;
+
         for (OrderDetail orderDetail : orderDetailList) {
             orderDetail.setOrderOrd(order.getOrd());
             Book bookTemp = bookMapper.selectByPrimaryKey(orderDetail.getBookOrd());
@@ -50,11 +54,22 @@ public class OrderService {
             if (stockTemp == null || stockTemp.getStockNum() < orderDetail.getBookNum()) {
                 throw new Exception("库存不足，请修改订单");
             }
-            if (orderDetailMapper.insertSelective(orderDetail) == 1) {
+            orderDetail.setBookName(bookTemp.getBookName());
+            orderDetail.setISBN(bookTemp.getISBN());
+            orderDetail.setBookPress(bookTemp.getPress());
+            orderDetail.setBookPrice(bookTemp.getPrice());
+            if (orderDetailMapper.insertSelective(orderDetail) != 1) {
                 throw new Exception("明细新增失败");
             }
+            totalPrice = totalPrice.add(bookTemp.getPrice().multiply(new BigDecimal(orderDetail.getBookNum())));
+            totalNum = totalNum + orderDetail.getBookNum();
         }
-        return true;
+
+        Order updateOrder = new Order();
+        updateOrder.setOrd(order.getOrd());
+        updateOrder.setTotalNum(totalNum);
+        updateOrder.setTotalPrice(totalPrice);
+        return orderMapper.updateByPrimaryKeySelective(updateOrder) == 1;
     }
 
     /**
@@ -89,5 +104,15 @@ public class OrderService {
         pager.setList(list);
         pager.setTotalRow(orderMapper.getListCount(order));
         return pager;
+    }
+
+    public Order getOrderByID(Long orderID) throws Exception {
+        Order order = orderMapper.selectByPrimaryKey(orderID);
+        if (order == null) {
+            throw new Exception("订单不存在");
+        }
+        List<OrderDetail> orderDetailList = orderDetailMapper.getListByOrderId(orderID);
+        order.setOrderDetailList(orderDetailList);
+        return order;
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 /**
@@ -27,8 +28,9 @@ public class ShopCarController {
 
     @RequestMapping("/list")
     public ResponseEntity<?> list(HttpServletRequest request,
+                                  HttpServletResponse response,
                                   Pager pager, ShopCar shopCar) throws Exception {
-        User currentUser = UserTool.getUser(request);
+        User currentUser = UserTool.getUser(request, response);
         shopCar.setUserId(currentUser.getOrd());
         pager = shopCarService.list(pager, shopCar);
         return new ResponseEntity<>(200, true, "查询成功", pager);
@@ -36,8 +38,9 @@ public class ShopCarController {
 
     @RequestMapping("/add")
     public ResponseEntity<?> add(HttpServletRequest request,
+                                 HttpServletResponse response,
                                  @RequestBody ShopCar shopCar) throws Exception {
-        User currentUser = UserTool.getUser(request);
+        User currentUser = UserTool.getUser(request, response);
         shopCar.setOrd(null);
         shopCar.setCreateTime(new Date());
         shopCar.setUserId(currentUser.getOrd());
@@ -52,8 +55,9 @@ public class ShopCarController {
 
     @RequestMapping("/update")
     public ResponseEntity<?> update(HttpServletRequest request,
+                                    HttpServletResponse response,
                                     @RequestBody ShopCar shopCar) throws Exception {
-        User currentUser = UserTool.getUser(request);
+        User currentUser = UserTool.getUser(request, response);
 
         shopCar.setUserId(currentUser.getOrd());
         if (shopCar.getOrd() == null) {
@@ -62,17 +66,18 @@ public class ShopCarController {
 
         Boolean result = shopCarService.update(shopCar);
         if (result) {
-            return new ResponseEntity<>(200, true, "新增成功", null);
+            return new ResponseEntity<>(200, true, "修改成功", null);
         } else {
-            return new ResponseEntity<>(400, false, "新增失败", null);
+            return new ResponseEntity<>(400, false, "修改失败", null);
         }
     }
 
 
     @RequestMapping("/del")
     public ResponseEntity<?> del(HttpServletRequest request,
+                                 HttpServletResponse response,
                                  ShopCar shopCar) throws Exception {
-        User currentUser = UserTool.getUser(request);
+        User currentUser = UserTool.getUser(request, response);
 
         shopCar.setUserId(currentUser.getOrd());
 

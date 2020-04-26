@@ -1,7 +1,6 @@
 package com.yxr.bookbusiness.controller;
 
 import com.yxr.bookbusiness.mode.Book;
-import com.yxr.bookbusiness.mode.BookClass;
 import com.yxr.bookbusiness.mode.ResponseEntity;
 import com.yxr.bookbusiness.mode.User;
 import com.yxr.bookbusiness.service.BookService;
@@ -14,7 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 图书信息
@@ -28,15 +29,29 @@ public class BookController {
     private BookService bookService;
 
     @RequestMapping("/list")
-    public ResponseEntity<?> list(Pager pager, Book book)throws Exception {
-        pager=bookService.list(pager, book);
+    public ResponseEntity<?> list(Pager pager, Book book) throws Exception {
+        pager = bookService.list(pager, book);
         return new ResponseEntity<>(200, true, "查询成功", pager);
+    }
+
+    @RequestMapping("/getbook")
+    public ResponseEntity<?> getByID(Long bookID) throws Exception {
+        Book book = bookService.getByID(bookID);
+        return new ResponseEntity<>(200, true, "查询成功", book);
+    }
+
+    @RequestMapping("/getbookbyids")
+    public ResponseEntity<?> getByIDs(String bookIDs) throws Exception {
+        bookIDs = "[" + bookIDs + "]";
+        List<Book> book = bookService.getByIDs(bookIDs);
+        return new ResponseEntity<>(200, true, "查询成功", book);
     }
 
     @RequestMapping("/add")
     public ResponseEntity<?> add(HttpServletRequest request,
-                                 @RequestBody Book book) throws Exception{
-        User currentUser = UserTool.getUser(request);
+                                 HttpServletResponse response,
+                                 @RequestBody Book book) throws Exception {
+        User currentUser = UserTool.getUser(request, response);
         if (currentUser.getRole() != 1) {
             return new ResponseEntity<>(401, false, "权限不足", null);
         }
@@ -44,7 +59,7 @@ public class BookController {
         book.setOrd(null);
         book.setCreateTime(new Date());
 
-        Boolean result=bookService.add(book);
+        Boolean result = bookService.add(book);
         if (result) {
             return new ResponseEntity<>(200, true, "新增成功", null);
         } else {
@@ -54,8 +69,9 @@ public class BookController {
 
     @RequestMapping("/update")
     public ResponseEntity<?> update(HttpServletRequest request,
-                                    @RequestBody Book book) throws Exception{
-        User currentUser = UserTool.getUser(request);
+                                    HttpServletResponse response,
+                                    @RequestBody Book book) throws Exception {
+        User currentUser = UserTool.getUser(request, response);
         if (currentUser.getRole() != 1) {
             return new ResponseEntity<>(401, false, "权限不足", null);
         }
@@ -75,8 +91,9 @@ public class BookController {
 
     @RequestMapping("/del")
     public ResponseEntity<?> del(HttpServletRequest request,
-                                 Long ord)throws Exception {
-        User currentUser = UserTool.getUser(request);
+                                 HttpServletResponse response,
+                                 Long ord) throws Exception {
+        User currentUser = UserTool.getUser(request, response);
         if (currentUser.getRole() != 1) {
             return new ResponseEntity<>(401, false, "权限不足", null);
         }

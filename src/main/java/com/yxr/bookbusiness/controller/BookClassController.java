@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -33,10 +34,20 @@ public class BookClassController {
         return new ResponseEntity<>(200, true, "查询成功", list);
     }
 
+    @RequestMapping("/getclass")
+    public ResponseEntity<?> get(Long bookClassID) {
+        BookClass bookClass = bookClassService.getBookClass(bookClassID);
+        if (bookClass == null) {
+            return new ResponseEntity<>(500, false, "没有找到该分类", null);
+        }
+        return new ResponseEntity<>(200, true, "查询成功", bookClass);
+    }
+
     @RequestMapping("/add")
     public ResponseEntity<?> add(HttpServletRequest request,
+                                 HttpServletResponse response,
                                  @RequestBody BookClass bookClass) throws Exception {
-        User currentUser = UserTool.getUser(request);
+        User currentUser = UserTool.getUser(request, response);
         if (currentUser.getRole() != 1) {
             return new ResponseEntity<>(401, false, "权限不足", null);
         }
@@ -55,8 +66,9 @@ public class BookClassController {
 
     @RequestMapping("/update")
     public ResponseEntity<?> update(HttpServletRequest request,
+                                    HttpServletResponse response,
                                     @RequestBody BookClass bookClass) throws Exception {
-        User currentUser = UserTool.getUser(request);
+        User currentUser = UserTool.getUser(request, response);
         if (currentUser.getRole() != 1) {
             return new ResponseEntity<>(401, false, "权限不足", null);
         }
@@ -76,8 +88,9 @@ public class BookClassController {
 
     @RequestMapping("/del")
     public ResponseEntity<?> del(HttpServletRequest request,
+                                 HttpServletResponse response,
                                  Long ord) throws Exception {
-        User currentUser = UserTool.getUser(request);
+        User currentUser = UserTool.getUser(request, response);
         if (currentUser.getRole() != 1) {
             return new ResponseEntity<>(401, false, "权限不足", null);
         }

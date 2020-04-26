@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface ShopCarMapper {
@@ -22,7 +23,9 @@ public interface ShopCarMapper {
 
     int updateByPrimaryKey(ShopCar record);
 
-    List<ShopCar> getList(@Param("pager") Pager pager, @Param("shopCar")ShopCar shopCar);
+    List<Map<String,Object>> getList(@Param("pager") Pager pager, @Param("shopCar")ShopCar shopCar);
 
     int getListCount(@Param("shopCar")ShopCar shopCar);
+
+    ShopCar getByUserAndBook(@Param("userID") Long userID,@Param("bookID") Long bookID);
 }
